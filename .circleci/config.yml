@@ -29,9 +29,9 @@ build-and-push:
     -setup_remote_docker
     -checkout
     -docker/check
-    -docker/build:
+    -docker/build
       image: jswee1/education-space
-    -docker/push:
+    -docker/push
       image: jswee1/education-space
 
 workflows:
