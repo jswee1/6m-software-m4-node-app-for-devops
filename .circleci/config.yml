@@ -29,9 +29,7 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - docker/check:
-          docker-username: jiansh3ng
-          docker-password: Michelle91
+      - docker/check
       - docker/build:
           image: jswee1/education-space
       - docker/push:
