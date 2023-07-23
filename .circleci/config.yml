@@ -23,6 +23,17 @@ jobs:
           echo "Running tests..."
           npm run test
 
+build-and-push:
+  executor: docker/docker
+  steps:
+    -setup_remote_docker
+    -checkout
+    -docker/check
+    -docker/build:
+      image: jswee1/education-space
+    -docker/push:
+      image: jswee1/education-space
+
 workflows:
   simple_workflow:
     jobs:
@@ -30,3 +41,6 @@ workflows:
       - test:
           requires:
             - build
+      -build-and-push:
+        requires:
+          -test
