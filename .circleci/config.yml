@@ -31,10 +31,9 @@ jobs:
       - checkout
       - docker/check
       - docker/build:
-          image: jswee1/education-space
+          image: jiansh3ng/education-space1
       - docker/push:
-          image: jswee1/education-space
-
+          image: jiansh3ng/education-space1
 workflows:
   simple_workflow:
     jobs:
