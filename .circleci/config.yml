@@ -32,9 +32,6 @@ jobs:
       - docker/check
       - docker/build:
           image: edisonzsq/education-space
-          auth: 
-            username: jiansh3ng
-            password: Michelle91
       - docker/push:
           image: edisonzsq/education-space
 
