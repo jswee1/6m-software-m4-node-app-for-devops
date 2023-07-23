@@ -30,9 +30,7 @@ build-and-push:
     -checkout
     -docker/check
     -docker/build
-      image: jswee1/education-space
     -docker/push
-      image: jswee1/education-space
 
 workflows:
   simple_workflow:
