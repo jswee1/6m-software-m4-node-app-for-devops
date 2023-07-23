@@ -29,7 +29,9 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - docker/check
+      - docker/check:
+            docker-username: jiansh3ng
+            docker-password: Michelle91
       - docker/build:
           image: edisonzsq/education-space
       - docker/push:
