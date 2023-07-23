@@ -33,9 +33,9 @@ jobs:
           docker-username: jiansh3ng
           docker-password: Michelle91
       - docker/build:
-          image: edisonzsq/education-space
+          image: jswee1/education-space
       - docker/push:
-          image: edisonzsq/education-space
+          image: jswee1/education-space
 
 workflows:
   simple_workflow:
