@@ -34,13 +34,64 @@ jobs:
           image: jiansh3ng/education-space1
       - docker/push:
           image: jiansh3ng/education-space1
+          
+  deploy:
+    docker:
+        - image: cimg/node:16.10
+    steps:
+        - setup_remote_docker      
+        - heroku/install
+        - checkout
+        - run:
+            name: Heroku Container Push
+            command: | 
+                heroku container:login
+                heroku container:push web -a jiansh3ng-su-devops
+                heroku container:release web -a jiansh3ngc-su-devop
+      
 workflows:
   simple_workflow:
     jobs:
       - build
+          filters:
+              branches:
+                only: develop
       - test:
           requires:
             - build
+          filters:
+              branches:
+                only: develop
       - build-and-push:
           requires:
             - test
+          filters:
+              branches:
+                only: develop
+
+
+  simple_cicd_workflow:
+    jobs:
+        - build
+          filters:
+              branches:
+                only: release
+      - test:
+          requires:
+            - build
+          filters:
+              branches:
+                only: release
+      - build-and-push:
+          requires:
+            - test
+          filters:
+              branches:
+                only: release
+      - deploy:
+          requires:
+            - build-and-push
+          filters:
+              branches:
+                only: release
+      
