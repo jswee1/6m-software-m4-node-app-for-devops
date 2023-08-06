@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.1
   docker: circleci/docker@2.1.4
+  heroku: circleci/heroku@2.0.0
 jobs:
   build:
     docker:
@@ -32,8 +33,10 @@ jobs:
       - docker/check
       - docker/build:
           image: jiansh3ng/education-space1
+          tag: <<pipleline.git.tag>>
       - docker/push:
           image: jiansh3ng/education-space1
+          tag: <<pipleline.got.tag>>
           
   deploy:
     docker:
@@ -55,43 +58,24 @@ workflows:
       - build
           filters:
               branches:
-                only: develop
+                only: main
       - test:
           requires:
             - build
           filters:
               branches:
-                only: develop
+                only: main
       - build-and-push:
-          requires:
-            - test
           filters:
+              tags:
+                only: /^v.*/
               branches:
-                only: develop
-
-
-  simple_cicd_workflow:
-    jobs:
-        - build
-          filters:
-              branches:
-                only: release
-      - test:
-          requires:
-            - build
-          filters:
-              branches:
-                only: release
-      - build-and-push:
-          requires:
-            - test
-          filters:
-              branches:
-                only: release
+                only: main
       - deploy:
           requires:
             - build-and-push
           filters:
+              tags:
+                only: /^v.*/
               branches:
-                only: release
-      
+                only: main
